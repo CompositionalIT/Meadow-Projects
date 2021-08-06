@@ -1,3 +1,3 @@
-# Meadow-Projects
+# Meadow Projects
 
-Sample projects for the Wilderness Labs Meadow platform.
+Sample projects for the [Wilderness Labs Meadow platform](https://www.wildernesslabs.co/developers).
