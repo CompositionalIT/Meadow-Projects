@@ -97,7 +97,7 @@ type MeadowApp() =
         graphics.DrawPixel (x, y - 1, colour)
         graphics.Show ()
 
-    let yChanged changeResult = 
+    let yRotated changeResult = 
         y <- updateParameter changeResult y
         graphics.DrawPixel (x + 1, y, colour)
         graphics.DrawPixel (x, y, colour)
@@ -115,7 +115,7 @@ type MeadowApp() =
     let _ = xClicked |> rotaryX.Clicked.Subscribe 
     let _ = yClicked |> rotaryY.Clicked.Subscribe 
     let _ = createRotaryObserver xRotated |> rotaryX.Subscribe
-    let _ = createRotaryObserver yChanged |> rotaryY.Subscribe
+    let _ = createRotaryObserver yRotated |> rotaryY.Subscribe
 
     // Prepare screen
     do initialiseGraphics graphics x y
