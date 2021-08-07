@@ -37,8 +37,10 @@ type MeadowApp() =
     let rotated (changeResult : IChangeResult<_>) = 
         
         match changeResult.New with
-        | Rotary.RotationDirection.Clockwise -> angle <- angle + 1
-        | _ -> angle <- angle - 1
+        | Rotary.RotationDirection.Clockwise -> 
+            angle <- angle + 1
+        | _ -> 
+            angle <- angle - 1
 
         match angle with
         | a when a > 180 -> angle <- 180
