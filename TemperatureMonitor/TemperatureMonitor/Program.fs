@@ -49,9 +49,7 @@ let loadScreen (graphics : GraphicsLibrary) displayWidth displayHeight =
     graphics.Show()
 
 let drawTemperature (graphics : GraphicsLibrary) (temperature : Meadow.Units.Temperature) =
-    
-    Console.WriteLine $"Temp: {temperature.Celsius} C"
-    
+        
     graphics.DrawRectangle(
         x = 48,
         y = 160,
@@ -62,7 +60,7 @@ let drawTemperature (graphics : GraphicsLibrary) (temperature : Meadow.Units.Tem
 
     graphics.DrawText(
         x = 48, y = 160,
-        text = "test",
+        text = sprintf "%.2f C" temperature.Celsius,
         color = Color.White,
         scaleFactor = GraphicsLibrary.ScaleFactor.X2)
 
