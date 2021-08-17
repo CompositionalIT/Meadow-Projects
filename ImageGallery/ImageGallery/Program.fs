@@ -28,7 +28,7 @@ let showJpeg (graphics : GraphicsLibrary) index =
 
     let jpgData = loadResource images.[index]    
     let decoder = new JpegDecoder()
-    let jpg = decoder.DecodeJpeg(jpgData)
+    let jpg = decoder.DecodeJpeg(jpgData) |> Array.map Convert.ToInt32
 
     Console.WriteLine $"Jpeg decoded is {jpg.Length} bytes"
     Console.WriteLine $"Width {decoder.Width}"
@@ -38,15 +38,14 @@ let showJpeg (graphics : GraphicsLibrary) index =
 
     seq {
         for i in 0..jpg.Length-1 do
-            let x = i % decoder.Width
-            let y = i / decoder.Width
-            yield! seq { x,y; x,y; x,y }
+            let coords = i % decoder.Width, i / decoder.Width
+            yield! seq { coords; coords; coords }
     }
     |> Seq.iteri (fun i (x,y) -> 
         if i % 3 = 0 && i < jpg.Length - 2 then
-            let r = jpg.[i] |> Convert.ToInt32
-            let g = jpg.[i + 1] |> Convert.ToInt32
-            let b = jpg.[i + 2] |> Convert.ToInt32
+            let r = jpg.[i]
+            let g = jpg.[i + 1] 
+            let b = jpg.[i + 2]
             let color = Color.FromRgb(r, g, b)
             graphics.DrawPixel(x, y, color))
 
