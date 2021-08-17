@@ -14,6 +14,7 @@ open System.IO
 let images = [| "image1.jpg"; "image2.jpg"; "image3.jpg" |]
 
 let loadResource filename =
+
     let assembly = Assembly.GetExecutingAssembly()
     let resourceName = $"ImageGallery.{filename}"
 
@@ -24,6 +25,7 @@ let loadResource filename =
     ms.ToArray()
 
 let showJpeg (graphics : GraphicsLibrary) index =
+
     let jpgData = loadResource images.[index]    
     let decoder = new JpegDecoder()
     let jpg = decoder.DecodeJpeg(jpgData)
@@ -35,11 +37,13 @@ let showJpeg (graphics : GraphicsLibrary) index =
     graphics.Clear()
 
     seq {
-        for x in 0..jpg.Length-1 do
-            yield x % decoder.Width, x / decoder.Width
-    } 
-    |> Seq.iteri(fun i (x, y) ->
-        if i % 3 = 0 && i < jpg.Length - 3 then do
+        for i in 0..jpg.Length-1 do
+            let x = i % decoder.Width
+            let y = i / decoder.Width
+            yield! seq { x,y; x,y; x,y }
+    }
+    |> Seq.iteri (fun i (x,y) -> 
+        if i % 3 = 0 && i < jpg.Length - 2 then
             let r = jpg.[i] |> Convert.ToInt32
             let g = jpg.[i + 1] |> Convert.ToInt32
             let b = jpg.[i + 2] |> Convert.ToInt32
@@ -81,7 +85,7 @@ type MeadowApp() =
             dcPin = device.Pins.D01,
             resetPin = device.Pins.D00,
             width = 240, height = 240)
-
+    
     let graphics = GraphicsLibrary(display)
 
     let _ =
