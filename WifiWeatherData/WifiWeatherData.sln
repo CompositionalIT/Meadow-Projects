@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WifiWeatherData", "WifiWeatherData\WifiWeatherData.fsproj", "{D27B7F14-9973-42AC-9184-4BED76D02E4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D27B7F14-9973-42AC-9184-4BED76D02E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D27B7F14-9973-42AC-9184-4BED76D02E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D27B7F14-9973-42AC-9184-4BED76D02E4B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D27B7F14-9973-42AC-9184-4BED76D02E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D27B7F14-9973-42AC-9184-4BED76D02E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D27B7F14-9973-42AC-9184-4BED76D02E4B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC71E58C-A32E-44AA-9F11-EB5E50F9D04A}
+	EndGlobalSection
+EndGlobal
