@@ -2,10 +2,10 @@ open System
 open Meadow.Devices
 open Meadow
 open Meadow.Foundation.Leds
-open Meadow.Foundation
 open Meadow.Foundation.Graphics
 open Meadow.Hardware
 open Meadow.Foundation.Displays.TftSpi
+open Meadow.Foundation.Sensors.Temperature
 
 type MeadowApp() =
     inherit App<F7Micro, MeadowApp>()
@@ -22,21 +22,13 @@ type MeadowApp() =
         Console.WriteLine("Initializing...")
         led.SetColor RgbLed.Colors.Red
     
-    let config = 
-        new SpiClockConfiguration(
-            speedKHz = 6000L,
-            mode = SpiClockConfiguration.Mode.Mode3)
-    
-    let display = 
-        new St7789 (
-            device = device,
-            spiBus = device.CreateSpiBus(device.Pins.SCK, device.Pins.MOSI, device.Pins.MISO, config),
-            chipSelectPin = device.Pins.D02,
-            dcPin = device.Pins.D01,
-            resetPin = device.Pins.D00,
-            width = 240, height = 240)
-    
-    let graphics = GraphicsLibrary(display)
+    let displayController = Display.Controller device
+
+    let analogTemperature = 
+        AnalogTemperature(
+            device,
+            device.Pins.A00,
+            AnalogTemperature.KnownSensorType.LM35)
 
     do 
         led.SetColor RgbLed.Colors.Green

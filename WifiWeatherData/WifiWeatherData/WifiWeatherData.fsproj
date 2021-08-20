@@ -7,9 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="meadow.jpg" />
+    <Compile Include="Display.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
