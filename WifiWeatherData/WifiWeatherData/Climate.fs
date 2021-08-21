@@ -6,6 +6,7 @@ open System
 open System.Net.Http
 open System.Text
 open System.Threading.Tasks
+open FSharp.Control.Tasks
 
 let climateDataUri = "http://localhost:2792/ClimateData";
 
@@ -15,7 +16,7 @@ type ClimateReading =
       BarometricPressureMillibarHg : Nullable<decimal>
       RelativeHumdity : Nullable<decimal> }
 
-let postTempReading (temp : Units.Temperature) = async {
+let postTempReading (temp : Units.Temperature) = task {
     
     let reading =
         { ID = Nullable<int64>()
@@ -31,7 +32,7 @@ let postTempReading (temp : Units.Temperature) = async {
     let! response = 
         client.PostAsync(
             climateDataUri, new StringContent(
-                json, Encoding.UTF8, "application/json")) |> Async.AwaitTask
+                json, Encoding.UTF8, "application/json"))
     try 
         response.EnsureSuccessStatusCode() |> ignore
     with 
@@ -41,16 +42,16 @@ let postTempReading (temp : Units.Temperature) = async {
             Console.WriteLine $"Request failed: {e.Message}"
 }
 
-let fetchTempReadings () = async {
+let fetchTempReadings () = task {
 
     use client = new HttpClient() 
     client.Timeout <- TimeSpan(0, 5, 0);
 
-    let! response = client.GetAsync(climateDataUri) |> Async.AwaitTask
+    let! response = client.GetAsync(climateDataUri)
     try 
         response.EnsureSuccessStatusCode() |> ignore
 
-        let! json = response.Content.ReadAsStringAsync() |> Async.AwaitTask
+        let! json = response.Content.ReadAsStringAsync()
         
         Console.WriteLine json
         
