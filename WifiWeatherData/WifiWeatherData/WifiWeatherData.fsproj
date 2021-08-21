@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="meadow.jpg" />
+    <Compile Include="Serialisation.fs" />
     <Compile Include="Secrets.fs" />
     <Compile Include="Climate.fs" />
     <Compile Include="Display.fs" />
@@ -16,8 +17,8 @@
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.46" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SimpleJpegDecoder" Version="0.4.0" />
-    <PackageReference Include="System.Text.Json" Version="5.0.2" />
     <PackageReference Include="TaskBuilder.fs" Version="2.1.0" />
   </ItemGroup>
 </Project>

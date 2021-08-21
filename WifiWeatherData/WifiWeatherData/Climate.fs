@@ -1,14 +1,15 @@
 ﻿module Climate
 
 open Meadow
-open System.Text.Json
-open System
+open Newtonsoft.Json
 open System.Net.Http
 open System.Text
 open System.Threading.Tasks
 open FSharp.Control.Tasks
+open System
+open Serialization
 
-let climateDataUri = "http://localhost:2792/ClimateData";
+let climateDataUri = "http://192.168.50.97:2792/ClimateData"
 
 type ClimateReading =
     { ID : Nullable<int64>
@@ -27,7 +28,7 @@ let postTempReading (temp : Units.Temperature) = task {
     use client = new HttpClient() 
     client.Timeout <- TimeSpan(0, 5, 0);
 
-    let json = JsonSerializer.Serialize reading
+    let json = JsonConvert.SerializeObject(reading, converters = [| OptionConverter() |])
 
     let! response = 
         client.PostAsync(
@@ -55,7 +56,7 @@ let fetchTempReadings () = task {
         
         Console.WriteLine json
         
-        let readings : ClimateReading[] = Array.empty //JsonSerializer.Deserialize<ClimateReading[]> json
+        let readings : ClimateReading[] = JsonConvert.DeserializeObject<ClimateReading[]>(json, converters = [| OptionConverter() |])
         
         Console.WriteLine "Deserialized to object"
         Console.WriteLine($"Temp: {readings.[0].TempC}")
@@ -68,7 +69,5 @@ let fetchTempReadings () = task {
         | e ->
             Console.WriteLine $"Request went sideways: {e.Message}"
             return Array.empty
-
-
 }
     
