@@ -7,6 +7,8 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="meadow.jpg" />
+    <Compile Include="Secrets.fs" />
+    <Compile Include="Climate.fs" />
     <Compile Include="Display.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
