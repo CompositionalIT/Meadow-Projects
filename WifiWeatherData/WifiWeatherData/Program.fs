@@ -4,6 +4,16 @@ open Meadow
 open Meadow.Foundation.Leds
 open Meadow.Foundation.Sensors.Temperature
 open Meadow.Gateway.WiFi
+open Climate
+
+let printFirstReading (readings : ClimateReading []) =
+    Seq.tryHead readings
+    |> Option.map (fun r -> 
+        match r.TempC with
+        | Some reading -> $"Temp: {reading}"
+        | None -> "No temperature provided in climate reading")
+    |> Option.defaultValue "No readings returned from server"
+    |> Console.WriteLine
 
 type MeadowApp() =
     inherit App<F7Micro, MeadowApp>()
@@ -45,13 +55,9 @@ type MeadowApp() =
             let temp = analogTemperature.Read().Result
             displayController.UpdateDisplay temp
 
-            let readings = Climate.fetchTempReadings().Result
-            Console.WriteLine($"Temp: {readings.[0].TempC}")
-
+            Climate.fetchTempReadings().Result |> printFirstReading
             Climate.postTempReading(temp).Result
-            
-            let readings = Climate.fetchTempReadings().Result
-            Console.WriteLine($"Temp: {readings.[0].TempC}")
+            Climate.fetchTempReadings().Result |> printFirstReading
 
             Console.WriteLine("App finished running.")
 

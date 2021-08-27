@@ -12,18 +12,18 @@ open Serialization
 let climateDataUri = "http://192.168.50.97:2792/ClimateData"
 
 type ClimateReading =
-    { ID : Nullable<int64>
-      TempC : Nullable<decimal>
-      BarometricPressureMillibarHg : Nullable<decimal>
-      RelativeHumdity : Nullable<decimal> }
+    { ID : int64 option
+      TempC : decimal option
+      BarometricPressureMillibarHg : decimal option
+      RelativeHumdity : decimal option }
 
 let postTempReading (temp : Units.Temperature) = task {
     
     let reading =
-        { ID = Nullable<int64>()
-          TempC = Nullable<decimal>(decimal temp.Celsius)
-          BarometricPressureMillibarHg = Nullable<decimal>()
-          RelativeHumdity = Nullable<decimal>() }
+        { ID = None
+          TempC = Some(decimal temp.Celsius)
+          BarometricPressureMillibarHg = None
+          RelativeHumdity = None }
     
     use client = new HttpClient() 
     client.Timeout <- TimeSpan(0, 5, 0);
