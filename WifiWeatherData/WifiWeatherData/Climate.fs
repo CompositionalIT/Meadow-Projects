@@ -56,10 +56,7 @@ let fetchTempReadings () = task {
         
         Console.WriteLine json
         
-        let readings : ClimateReading[] = JsonConvert.DeserializeObject<ClimateReading[]>(json, converters = [| OptionConverter() |])
-        
-        Console.WriteLine "Deserialized to object"
-        Console.WriteLine($"Temp: {readings.[0].TempC}")
+        let readings = JsonConvert.DeserializeObject<ClimateReading[]>(json, converters = [| OptionConverter() |])
 
         return readings
     with 
