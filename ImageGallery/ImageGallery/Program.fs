@@ -36,18 +36,12 @@ let showJpeg (graphics : GraphicsLibrary) index =
 
     graphics.Clear()
 
-    seq {
-        for i in 0..jpg.Length-1 do
-            let coords = i % decoder.Width, i / decoder.Width
-            yield! seq { coords; coords; coords }
-    }
-    |> Seq.iteri (fun i (x,y) -> 
-        if i % 3 = 0 && i < jpg.Length - 2 then
-            let r = jpg.[i]
-            let g = jpg.[i + 1] 
-            let b = jpg.[i + 2]
-            let color = Color.FromRgb(r, g, b)
-            graphics.DrawPixel(x, y, color))
+    jpg
+    |> Seq.chunkBySize 3
+    |> Seq.iteri (fun i bytes ->
+        let x, y = i % decoder.Width, i / decoder.Width
+        let color = Color.FromRgb(bytes.[0], bytes.[1], bytes.[2])
+        graphics.DrawPixel(x, y, color))
 
     graphics.Show()
 
