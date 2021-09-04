@@ -109,11 +109,11 @@ type MeadowApp() =
             [0..180]
             |> List.iter (fun i -> 
                 let x = 120 + int (radarData.[i] * MathF.Cos(float32 i * MathF.PI / 180f))
-                let y = 170 - (int)(radarData.[i] * MathF.Sin(float32 i * MathF.PI / 180f))
+                let y = 170 - int (radarData.[i] * MathF.Sin(float32 i * MathF.PI / 180f))
                 graphics.DrawCircle(x, y, 2, Color.Yellow, true))
 
             graphics.Show()
-            Thread.Sleep(500)
+            Thread.Sleep 500
             
 
 [<EntryPoint>]
