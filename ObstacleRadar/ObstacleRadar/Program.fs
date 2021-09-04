@@ -64,10 +64,10 @@ type MeadowApp() =
     
     let graphics = GraphicsLibrary(display)
 
+    let servo = Servo (device.CreatePwmPort(device.Pins.D05), NamedServoConfigs.SG90)
+    
     let i2cBus = device.CreateI2cBus(I2cBusSpeed.FastPlus)
     let sensor = new Vl53l0x(device, i2cBus)
-
-    let servo = Servo (device.CreatePwmPort(device.Pins.D05), NamedServoConfigs.SG90)
     let sensorObserver = 
         Vl53l0x
             .CreateObserver(
@@ -115,7 +115,6 @@ type MeadowApp() =
             graphics.Show()
             Thread.Sleep(500)
             
-
 
 [<EntryPoint>]
 let main argv =
