@@ -15,7 +15,4 @@
     <PackageReference Include="Meadow.Foundation.Sensors.Distance.Vl53l0x" Version="0.1.34" />
     <PackageReference Include="Meadow.Foundation.ServoCore" Version="0.8.40" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SensorTest\SensorTest.csproj" />
-  </ItemGroup>
 </Project>
