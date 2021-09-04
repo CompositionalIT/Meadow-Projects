@@ -65,5 +65,5 @@ type MeadowApp() =
 [<EntryPoint>]
 let main argv =
     let app = new MeadowApp()
-    Threading.Thread.Sleep (System.Threading.Timeout.Infinite)
+    Threading.Thread.Sleep System.Threading.Timeout.Infinite
     0
