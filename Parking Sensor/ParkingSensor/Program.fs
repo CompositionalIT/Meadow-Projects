@@ -46,7 +46,6 @@ type MeadowApp() =
                         | d -> mapRange 7. 70. 62.5 1000. d |> int
 
                     beepIntervalMs <- interval
-                    
                     Console.WriteLine $"{changeResult.New.Centimeters}cm, {beepIntervalMs} interval"))
     
     let _ = sensor.Subscribe sensorObserver
