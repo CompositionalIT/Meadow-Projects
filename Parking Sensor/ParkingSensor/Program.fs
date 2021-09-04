@@ -29,6 +29,7 @@ type MeadowApp() =
         device.Pins.D09
         |> device.CreatePwmPort
         |> PiezoSpeaker
+
     do speaker.StopTone()
 
     let i2cBus = device.CreateI2cBus I2cBusSpeed.FastPlus
