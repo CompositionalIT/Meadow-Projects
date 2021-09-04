@@ -7,7 +7,7 @@ open System.Threading
 open Meadow.Foundation.Sensors.Distance
 open Meadow.Foundation.Audio
 
-let mapRange oldMin oldMax newMin newMax oldVal =
+let mapLinearRange oldMin oldMax newMin newMax oldVal =
     ((oldVal - oldMin) / (oldMax - oldMin) ) * (newMax - newMin) + newMin
 
 type MeadowApp() =
@@ -43,7 +43,7 @@ type MeadowApp() =
                         match changeResult.New.Centimeters with
                         | d when d <= 0. || d >= 70. -> 0
                         | d when  d > 0. && d <= 7. -> 62
-                        | d -> mapRange 7. 70. 62.5 1000. d |> int
+                        | d -> mapLinearRange 7. 70. 62.5 1000. d |> int
 
                     beepIntervalMs <- interval
                     Console.WriteLine $"{changeResult.New.Centimeters}cm, {beepIntervalMs} interval"))
