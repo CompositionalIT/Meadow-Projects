@@ -31,19 +31,22 @@ type MeadowApp() =
         |> PiezoSpeaker
     do speaker.StopTone()
 
-    let i2cBus = device.CreateI2cBus(I2cBusSpeed.FastPlus)
+    let i2cBus = device.CreateI2cBus I2cBusSpeed.FastPlus
     let sensor = new Vl53l0x(device, i2cBus)
 
     let sensorObserver = 
         Vl53l0x
             .CreateObserver(
                 (fun changeResult -> 
+                    
                     let interval =
                         match changeResult.New.Centimeters with
                         | d when d <= 0. || d >= 70. -> 0
                         | d when  d > 0. && d <= 7. -> 62
                         | d -> mapRange 7. 70. 62.5 1000. d |> int
+
                     beepIntervalMs <- interval
+                    
                     Console.WriteLine $"{changeResult.New.Centimeters}cm, {beepIntervalMs} interval"))
     
     let _ = sensor.Subscribe sensorObserver
